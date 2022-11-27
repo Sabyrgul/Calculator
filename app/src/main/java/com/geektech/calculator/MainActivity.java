@@ -9,15 +9,24 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private TextView textView;
-    private Integer firstNum, secondNum;
+    private Double firstNum, secondNum;
     private String operation;
     private Boolean isOperationClick;
-    private Integer result;
+    private Double result;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView=findViewById(R.id.text_view);
+    }
+    public void checkObject(Double number){
+        if(number-number.intValue()==0)
+        {
+            Integer resultInt=number.intValue();
+            textView.setText(resultInt.toString());
+        }
+        else textView.setText(number.toString());
+        operation="";
     }
     public TextView checkZero(String symbol){
         if(textView.getText().toString().equals("0")||isOperationClick){
@@ -58,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_0:
                 checkZero("0");
                 break;
+            case R.id.btn_dot:
+                textView.append(".");
+                break;
             case R.id.btn_clear:
                 textView.setText("0");
                 break;
@@ -67,24 +79,53 @@ public class MainActivity extends AppCompatActivity {
 
     public void onOperationClick(View view) {
         switch (view.getId()){
+            case(R.id.btn_plus_minus):
+                firstNum= Double.valueOf(textView.getText().toString());
+                if(firstNum>0){
+                    firstNum=0-firstNum;
+                }
+                else
+                    firstNum=-firstNum;
+                checkObject(firstNum);
+                break;
             case (R.id.btn_plus):
-                firstNum= Integer.valueOf(textView.getText().toString());
+                firstNum= Double.valueOf(textView.getText().toString());
              operation="sum";
                 break;
             case(R.id.btn_minus):
-                firstNum= Integer.valueOf(textView.getText().toString());
+                firstNum= Double.valueOf(textView.getText().toString());
                operation="minus";
                break;
             case(R.id.btn_multiplication):
-                firstNum= Integer.valueOf(textView.getText().toString());
+                firstNum= Double.valueOf(textView.getText().toString());
                 operation="multiply";
                 break;
             case(R.id.btn_division):
-                firstNum= Integer.valueOf(textView.getText().toString());
+                firstNum= Double.valueOf(textView.getText().toString());
                 operation="divide";
                 break;
+            case (R.id.btn_percentage):
+                secondNum= Double.valueOf(textView.getText().toString());
+                 switch (operation){
+                    case "sum":
+                        result=firstNum*secondNum/100+firstNum;
+                        break;
+                    case "minus":
+                        result=firstNum-firstNum*secondNum/100;
+                        break;
+                    case "multiply":
+                        result=firstNum*secondNum/100;
+                        break;
+                    case "divide":
+                        result=(firstNum/secondNum)*100;
+                        break;
+                     case "":
+                         result=0.0;
+                }
+                checkObject(result);
+                break;
             case(R.id.btn_equal):
-                secondNum= Integer.valueOf(textView.getText().toString());
+                secondNum= Double.valueOf(textView.getText().toString());
                 switch (operation){
                     case "sum":
                         result=firstNum+secondNum;
@@ -99,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                         result=firstNum/secondNum;
                         break;
                 }
-                textView.setText(result.toString());
+                checkObject(result);
                 break;
         }
         isOperationClick=true;

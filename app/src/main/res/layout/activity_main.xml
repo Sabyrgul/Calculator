@@ -19,7 +19,7 @@
             android:text="0"
             android:gravity="bottom|end"
             android:textColor="@color/white"
-            android:maxLines="1"
+            android:maxLines="3"
             android:ellipsize="end"
             android:textSize="80sp"/>
     </FrameLayout>
@@ -51,13 +51,13 @@
                 android:layout_marginHorizontal="18dp"
                 android:text="+/-"
                 android:id="@+id/btn_plus_minus"
-                android:onClick="onSymbolClick"
+                android:onClick="onOperationClick"
                 /> <com.google.android.material.button.MaterialButton
             style="@style/Grey.Button"
             android:layout_marginEnd="18dp"
             android:text="%"
             android:id="@+id/btn_percentage"
-            android:onClick="onSymbolClick"
+            android:onClick="onOperationClick"
             />
             <com.google.android.material.button.MaterialButton
                 style="@style/Orange.Button"
