@@ -2,6 +2,7 @@ package com.geektech.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Switch;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         return textView;
     }
    public void onSymbolClick(View view) {
-
+       findViewById(R.id.open_button).setVisibility(View.INVISIBLE);
         switch(view.getId()){
             case R.id.btn_1:
                 checkZero("1");
@@ -76,10 +77,10 @@ public class MainActivity extends AppCompatActivity {
         }
         isOperationClick=false;
     }
-
     public void onOperationClick(View view) {
         switch (view.getId()){
             case(R.id.btn_plus_minus):
+                findViewById(R.id.open_button).setVisibility(View.INVISIBLE);
                 firstNum= Double.valueOf(textView.getText().toString());
                 if(firstNum>0){
                     firstNum=0-firstNum;
@@ -89,22 +90,27 @@ public class MainActivity extends AppCompatActivity {
                 checkObject(firstNum);
                 break;
             case (R.id.btn_plus):
+                findViewById(R.id.open_button).setVisibility(View.INVISIBLE);
                 firstNum= Double.valueOf(textView.getText().toString());
              operation="sum";
                 break;
             case(R.id.btn_minus):
+                findViewById(R.id.open_button).setVisibility(View.INVISIBLE);
                 firstNum= Double.valueOf(textView.getText().toString());
                operation="minus";
                break;
             case(R.id.btn_multiplication):
+                findViewById(R.id.open_button).setVisibility(View.INVISIBLE);
                 firstNum= Double.valueOf(textView.getText().toString());
                 operation="multiply";
                 break;
             case(R.id.btn_division):
+                findViewById(R.id.open_button).setVisibility(View.INVISIBLE);
                 firstNum= Double.valueOf(textView.getText().toString());
                 operation="divide";
                 break;
             case (R.id.btn_percentage):
+                findViewById(R.id.open_button).setVisibility(View.INVISIBLE);
                 secondNum= Double.valueOf(textView.getText().toString());
                  switch (operation){
                     case "sum":
@@ -125,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 checkObject(result);
                 break;
             case(R.id.btn_equal):
+                findViewById(R.id.open_button).setVisibility(View.VISIBLE);
                 secondNum= Double.valueOf(textView.getText().toString());
                 switch (operation){
                     case "sum":
@@ -144,5 +151,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         isOperationClick=true;
+    }
+    public void onSecondActivityOpen(View view){
+        String result=textView.getText().toString();
+        Intent intent=new Intent(this,ResultActivity.class);
+        intent.putExtra("keyResult",result);
+        startActivity(intent);
     }
 }

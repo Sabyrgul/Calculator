@@ -10,4 +10,6 @@
     <color name="grey">#A5A5A5</color>
     <color name="orange">#FF9F0C</color>
     <color name="dark_grey">#333333</color>
+    <color name="grey_second">#445161</color>
+    <color name="red">#CF3226</color>
 </resources>
